@@ -13,10 +13,6 @@ class Life {
     });
   }
 
-  getArray(length) {
-    return new Array(length);
-  }
-
   placeCells(amount) {
     for (let i = 0; i < amount; i++) {
       const x = Math.round(Math.random() * (this.bounds.n - 1));
