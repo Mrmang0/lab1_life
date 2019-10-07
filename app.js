@@ -1,7 +1,7 @@
 class Life {
   constructor(n, m) {
     this.bounds = { n, m };
-    this.cels = new Array(n).fill([]).map(c => {
+    this.cells = new Array(n).fill([]).map(c => {
       const x = new Array(m);
       x.fill(false);
       return x;
@@ -22,7 +22,7 @@ class Life {
       const x = Math.round(Math.random() * (this.bounds.n - 1));
       const y = Math.round(Math.random() * (this.bounds.m - 1));
 
-      this.cels[x][y] = true;
+      this.cells[x][y] = true;
     }
   }
 
@@ -30,7 +30,7 @@ class Life {
     for (let n = 0; n < this.bounds.n; n++) {
       let line = "";
       for (let m = 0; m < this.bounds.m; m++) {
-        const cell = this.cels[n][m];
+        const cell = this.cells[n][m];
         line += cell ? "*" : " ";
       }
       console.log(line);
@@ -47,12 +47,12 @@ class Life {
         }
         if (nearCellsCount < 2 || nearCellsCount > 3) {
           this.nextGenerationCells[n][m] = false;
-        } else if (this.cels[n][m]) {
+        } else if (this.cells[n][m]) {
           this.nextGenerationCells[n][m] = true;
         }
       }
     }
-    this.cels = this.nextGenerationCells.map(x => [...x]);
+    this.cells = this.nextGenerationCells.map(x => [...x]);
   }
 
   getNearCellsCount(x, y) {
@@ -72,14 +72,14 @@ class Life {
           y: pt.y > 0 ? pt.y % this.bounds.m : this.bounds.m - 1
         };
       })
-      .filter(points => this.cels[points.x][points.y]).length;
+      .filter(points => this.cells[points.x][points.y]).length;
   }
 
   IsDead() {
     let len = 0;
     for (let n = 0; n < this.bounds.n; n++) {
       for (let m = 0; m < this.bounds.m; m++) {
-        len = !this.cels[n][m] ? len + 1 : len;
+        len = !this.cells[n][m] ? len + 1 : len;
       }
     }
     console.log(len);
@@ -91,10 +91,10 @@ class Life {
 const lifeGame = new Life(40, 100);
 // a.placeCells(100);
 
-lifeGame.cels[10][14] = true;
-lifeGame.cels[10][15] = true;
-lifeGame.cels[11][15] = true;
-lifeGame.cels[10][16] = true;
+lifeGame.cells[10][14] = true;
+lifeGame.cells[10][15] = true;
+lifeGame.cells[11][15] = true;
+lifeGame.cells[10][16] = true;
 
 lifeGame.drawCells();
 const interval = setInterval(() => {
